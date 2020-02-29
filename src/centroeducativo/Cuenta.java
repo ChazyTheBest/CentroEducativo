@@ -68,12 +68,12 @@ public class Cuenta
             throw new Exception("El IBAN no tiene un formato válido.");
         }
 
-        if (!Cuenta.tmEEEE.containsKey(nc.substring(4, 8)))
+        if (!tmEEEE.containsKey(nc.substring(4, 8)))
         {
             throw new Exception("El código de banco no existe.");
         }
 
-        if (!Cuenta.tmEEEESSSS.containsKey(nc.substring(4, 12)))
+        if (!tmEEEESSSS.containsKey(nc.substring(4, 12)))
         {
             throw new Exception("El código de la sucursal no existe.");
         }
