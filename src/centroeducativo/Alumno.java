@@ -59,7 +59,6 @@ public class Alumno extends Persona
             else if (s.equals("0") && tmAsignaturasAlumno.isEmpty())
             {
                 System.out.println("El alumno debe estar matriculado en al menos una asignatura.");
-                s = "";
             }
         }
 
@@ -72,7 +71,7 @@ public class Alumno extends Persona
         return new StringBuilder(super.toString()).append("\nCurso: ").append(curso).append("/n").toString();
     }
 
-    public String boletinNotas(String cur, int eva)
+    public String boletinNotas(int eva)
     {
         StringBuilder grades = new StringBuilder("Alumno: ");
 
@@ -82,7 +81,7 @@ public class Alumno extends Persona
         for (Map.Entry<String, Notas> entry : tmAsignaturasAlumno.entrySet())
         {
             grades.append("\n")
-                  .append(TablasCursos.tmCCASIGNA.get(curso))
+                  .append(TablasCursos.tmCCASIGNA.get(entry.getKey()))
                   .append(": ")
                   .append(entry.getValue().getNotas()[eva]);
         }
@@ -109,5 +108,4 @@ public class Alumno extends Persona
     {
         this.tmAsignaturasAlumno = tmAsignaturasAlumno;
     }
-
 }

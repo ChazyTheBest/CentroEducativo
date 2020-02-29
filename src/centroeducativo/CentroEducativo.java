@@ -31,15 +31,6 @@ public class CentroEducativo
         new CentroEducativo().go();
     }
 
-    void test()
-    {
-        Scanner sc = new Scanner(System.in);
-
-        // test case
-
-        sc.close();
-    }
-
     int readMonth(String text, Scanner sc)
     {
         int mes = -1;
@@ -100,6 +91,28 @@ public class CentroEducativo
         return key;
     }
 
+    void printNames(String text, boolean p, boolean s)
+    {
+        System.out.printf(text, curso);
+
+        String t = p && !s ? "(P) " : "";
+
+        for (Map.Entry<String, Persona> entry : lista.entrySet())
+        {
+            if (p && entry.getValue() instanceof Profesor)
+            {
+                System.out.printf("%s%s, %s\n", t, entry.getValue().getApellidos(), entry.getValue().getNombre());
+            }
+
+            else if (s && entry.getValue() instanceof Alumno)
+            {
+                Alumno a = Alumno.class.cast(entry.getValue());
+
+                System.out.printf("(%s) %s, %s", a.getCurso(), a.getApellidos(), a.getNombre());
+            }
+        }
+    }
+
     void mainMenu(Scanner sc)
     {
         int menu = -1;
@@ -142,56 +155,21 @@ public class CentroEducativo
 
                     break;
                 }
-                case 3: // print all data
+                case 3: // print all names
                 {
-                    System.out.printf("Curso Académico: %s\nLISTADO DE PROFESORES Y ALUMNOS\nAPELLIDOS/NOMBRE\n", curso);
-
-                    for (Map.Entry<String, Persona> entry : lista.entrySet())
-                    {
-                        if (entry.getValue() instanceof Profesor)
-                        {
-                            System.out.printf("(P) %s, %s\n", entry.getValue().getApellidos(), entry.getValue().getNombre());
-                        }
-
-                        else if (entry.getValue() instanceof Alumno)
-                        {
-                            Alumno a = Alumno.class.cast(entry.getValue());
-
-                            System.out.printf("(%s) %s, %s", a.getTmAsignaturasAlumno().firstKey().substring(0, 2), a.getApellidos(),
-                                                                                                                    a.getNombre());
-                        }
-                    }
+                    printNames("Curso Académico: %s\nLISTADO DE PROFESORES Y ALUMNOS\nAPELLIDOS/NOMBRE\n", true, true);
 
                     break;
                 }
-                case 4: // print professors' data
+                case 4: // print professors' names
                 {
-                    System.out.printf("Curso Académico: %s\nLISTADO DE PROFESORES\nAPELLIDOS/NOMBRE\n", curso);
-
-                    for (Map.Entry<String, Persona> entry : lista.entrySet())
-                    {
-                        if (entry.getValue() instanceof Profesor)
-                        {
-                            System.out.printf("(P) %s, %s\n", entry.getValue().getApellidos(), entry.getValue().getNombre());
-                        }
-                    }
+                    printNames("Curso Académico: %s\nLISTADO DE PROFESORES\nAPELLIDOS/NOMBRE\n", true, false);
 
                     break;
                 }
-                case 5: // print students' data
+                case 5: // print students' names
                 {
-                    System.out.printf("Curso Académico: %s\nLISTADO DE ALUMNOS\nAPELLIDOS/NOMBRE\n", curso);
-
-                    for (Map.Entry<String, Persona> entry : lista.entrySet())
-                    {
-                        if (entry.getValue() instanceof Alumno)
-                        {
-                            Alumno a = Alumno.class.cast(entry.getValue());
-
-                            System.out.printf("(%s) %s, %s", a.getTmAsignaturasAlumno().firstKey().substring(0, 2), a.getApellidos(),
-                                                                                                                    a.getNombre());
-                        }
-                    }
+                    printNames("Curso Académico: %s\nLISTADO DE ALUMNOS\nAPELLIDOS/NOMBRE\n", false, true);
 
                     break;
                 }
@@ -310,17 +288,17 @@ public class CentroEducativo
 
                             if (a.getTmAsignaturasAlumno().containsKey(s))
                             {
-                                System.out.print("Introduce la nota [1-10]: ");
+                                System.out.print("Introduce la nota [0-10]: ");
                                 int notas = sc.nextInt();
 
-                                if (notas > 0 && notas < 11)
+                                if (notas > -1 && notas < 11)
                                 {
                                     a.getTmAsignaturasAlumno().get(s).getNotas()[e] = notas;
                                 }
 
                                 else
                                 {
-                                    System.out.println("La nota debe ser un número entre 1 y el 10 (ambos incluidos).");
+                                    System.out.println("La nota debe ser un número entre 0 y el 10 (ambos incluidos).");
                                 }
                             }
                         }
@@ -417,7 +395,7 @@ public class CentroEducativo
 
                             if (a.getCurso().equals(c))
                             {
-                                System.out.println(a.boletinNotas(c, e));
+                                System.out.println(a.boletinNotas(e));
                             }
                         }
                     }
@@ -543,7 +521,7 @@ public class CentroEducativo
 
                                     else
                                     {
-                                        throw new Exception("El número de horas extra debe ser entre 1 y 19 (ambos incluidos).");
+                                        throw new Exception("El número de horas extra debe ser entre 0 y 20 (ambos incluidos).");
                                     }
                                 }
 

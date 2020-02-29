@@ -14,7 +14,7 @@ public class TablasCursos
         System.out.print("Curso: ");
         String curso = sc.next().toUpperCase();;
 
-        if (!TablasCursos.tmCC.containsKey(curso))
+        if (!tmCC.containsKey(curso))
         {
             throw new Exception("El curso no existe.");
         }

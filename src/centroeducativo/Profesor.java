@@ -112,7 +112,7 @@ public class Profesor extends Persona
                     {
                         System.out.println(e.getMessage());
                         show = false;
-                        continue;
+                        break;
                     }
 
                     tmAsignaturas.put(s, TablasCursos.tmCCASIGNA.get(s));
@@ -133,7 +133,7 @@ public class Profesor extends Persona
                     {
                         System.out.println(e.getMessage());
                         show = false;
-                        continue;
+                        break;
                     }
 
                     tmAsignaturas.remove(s);
@@ -173,7 +173,9 @@ public class Profesor extends Persona
 
     public String imprimeAsignaturas()
     {
-        StringBuilder sb = new StringBuilder("\tASIGNATURAS QUE IMPARTE");
+        StringBuilder sb = new StringBuilder("\tASIGNATURAS QUE IMPARTE\n");
+
+        sb.append(super.getApellidos()).append(", ").append(super.getNombre());
 
         if (tmAsignaturas.isEmpty())
         {

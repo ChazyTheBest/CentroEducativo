@@ -55,7 +55,7 @@ public abstract class Persona
 
             catch (Exception e)
             {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         }
 
@@ -70,7 +70,7 @@ public abstract class Persona
 
             catch (Exception e)
             {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         }
 
